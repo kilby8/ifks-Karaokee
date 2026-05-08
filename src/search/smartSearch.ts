@@ -9,7 +9,7 @@ export type SearchResult = {
   last_sung_at: number | null;
 };
 
-const RECENCY_DECAY_PERIOD_MS = 1000 * 60 * 60 * 24 * 60;
+const RECENCY_DECAY_PERIOD_MS = 60 * 24 * 60 * 60 * 1000;
 
 function normalize(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();

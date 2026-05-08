@@ -12,6 +12,7 @@ export type CdgDecoder = {
 export const createCdgDecoder = (): CdgDecoder => ({
   decodeFrames(cdgBinary: Uint8Array) {
     void cdgBinary;
+    // Placeholder for native/JS CDG packet decode pipeline.
     return [];
   },
 });

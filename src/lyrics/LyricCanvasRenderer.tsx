@@ -4,6 +4,7 @@ import { Canvas } from '@shopify/react-native-skia';
 import { CdgFrame } from './cdgDecoder';
 import { LrcLine } from './lrcParser';
 import { getSyncedLyricState } from './lyricSyncEngine';
+import { darkKJTheme } from '../ui/theme';
 
 type Props = {
   width: number;
@@ -26,10 +27,10 @@ export function LyricCanvasRenderer({ width, height, playbackMs, lrcLines, cdgFr
       <Text
         style={{
           position: 'absolute',
-          left: 40,
-          bottom: 80,
+          left: darkKJTheme.spacing.lg,
+          bottom: darkKJTheme.spacing.xl + darkKJTheme.spacing.lg,
           fontSize: 28,
-          color: '#F5F8FF',
+          color: darkKJTheme.colors.textPrimary,
         }}
       >
         {state.activeLine?.text || ''}
@@ -37,10 +38,10 @@ export function LyricCanvasRenderer({ width, height, playbackMs, lrcLines, cdgFr
       <Text
         style={{
           position: 'absolute',
-          left: 40,
-          bottom: 40,
+          left: darkKJTheme.spacing.lg,
+          bottom: darkKJTheme.spacing.lg,
           fontSize: 28,
-          color: '#F5F8FF',
+          color: darkKJTheme.colors.textPrimary,
           opacity: 0.55,
         }}
       >
