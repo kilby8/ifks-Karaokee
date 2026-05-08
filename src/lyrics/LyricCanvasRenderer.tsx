@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { View } from 'react-native';
-import { Canvas, Text as SkiaText, useFont } from '@shopify/react-native-skia';
+import { Text, View } from 'react-native';
+import { Canvas } from '@shopify/react-native-skia';
 import { CdgFrame } from './cdgDecoder';
 import { LrcLine } from './lrcParser';
 import { getSyncedLyricState } from './lyricSyncEngine';
@@ -18,24 +18,34 @@ export function LyricCanvasRenderer({ width, height, playbackMs, lrcLines, cdgFr
     () => getSyncedLyricState(playbackMs, lrcLines, cdgFrames),
     [playbackMs, lrcLines, cdgFrames]
   );
-  const font = useFont(undefined, 28);
 
   return (
-    <View>
+    <View style={{ width, height }}>
       <Canvas style={{ width, height }}>
-        {font && (
-          <>
-            <SkiaText x={40} y={height - 80} text={state.activeLine?.text || ''} font={font} />
-            <SkiaText
-              x={40}
-              y={height - 40}
-              text={state.nextLine?.text || ''}
-              font={font}
-              opacity={0.55}
-            />
-          </>
-        )}
       </Canvas>
+      <Text
+        style={{
+          position: 'absolute',
+          left: 40,
+          bottom: 80,
+          fontSize: 28,
+          color: '#F5F8FF',
+        }}
+      >
+        {state.activeLine?.text || ''}
+      </Text>
+      <Text
+        style={{
+          position: 'absolute',
+          left: 40,
+          bottom: 40,
+          fontSize: 28,
+          color: '#F5F8FF',
+          opacity: 0.55,
+        }}
+      >
+        {state.nextLine?.text || ''}
+      </Text>
     </View>
   );
 }

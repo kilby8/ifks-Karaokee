@@ -30,7 +30,7 @@ function scoreResult(query: string, candidate: { artist: string; title: string; 
   const target = normalize(`${candidate.artist} ${candidate.title}`);
   const q = normalize(query);
   const maxLen = Math.max(1, target.length, q.length);
-  const fuzzyScore = 1 - editDistance(q, target.slice(0, Math.max(target.length, q.length))) / maxLen;
+  const fuzzyScore = 1 - editDistance(q, target) / maxLen;
   const topHitBoost = candidate.is_top_hit ? 0.2 : 0;
   const now = Date.now();
   const recentWeight =

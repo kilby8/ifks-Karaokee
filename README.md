@@ -4,7 +4,7 @@ IKFS boilerplate for a high-performance Expo/React Native karaoke manager.
 
 ## Architecture
 
-See `/home/runner/work/ifks-Karaokee/ifks-Karaokee/docs/ARCHITECTURE.md` for the full architecture and integration notes.
+See `docs/ARCHITECTURE.md` for the full architecture and integration notes.
 
 ## Boilerplate modules
 
