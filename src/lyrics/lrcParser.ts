@@ -16,8 +16,13 @@ export function parseLrc(content: string): LrcLine[] {
     for (const match of timeMatches) {
       const mm = Number(match[1]);
       const ss = Number(match[2]);
-      const fraction = (match[3] || '').padEnd(3, '0');
-      const ms = Number(fraction);
+      const fraction = match[3] || '0';
+      const ms =
+        fraction.length === 1
+          ? Number(fraction) * 100
+          : fraction.length === 2
+            ? Number(fraction) * 10
+            : Number(fraction.slice(0, 3));
       lines.push({ timeMs: mm * 60000 + ss * 1000 + ms, text });
     }
   }

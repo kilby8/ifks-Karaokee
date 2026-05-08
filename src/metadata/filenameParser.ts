@@ -29,6 +29,7 @@ export function parseKaraokeFilename(fileName: string): ParsedFilename {
     return { artist, title, extension, rawName };
   }
 
+  // Fallback supports Title_Artist style names when separator-based parsing fails.
   const tokens = normalized.split(' ');
   if (tokens.length > 1) {
     title = tokens[0].trim();
