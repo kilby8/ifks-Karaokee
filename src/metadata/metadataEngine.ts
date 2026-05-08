@@ -14,6 +14,7 @@ export type FileRecord = {
 };
 
 export type LocalModelClassifier = (entry: ParsedFilename) => Promise<LocalAIClassification>;
+const TOP_HIT_THRESHOLD = 0.7;
 
 function normalizeSearch(artist: string, title: string) {
   return `${artist} ${title}`.toLowerCase().replace(/\s+/g, ' ').trim();
@@ -24,7 +25,7 @@ function toTrackId(path: string) {
 }
 
 function isTopHit(classification: LocalAIClassification) {
-  return (classification.topHitScore || 0) >= 0.7 ? 1 : 0;
+  return (classification.topHitScore || 0) >= TOP_HIT_THRESHOLD ? 1 : 0;
 }
 
 export async function indexLocalLibrary(

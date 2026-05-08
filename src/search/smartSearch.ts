@@ -11,6 +11,8 @@ export type SearchResult = {
 
 const RECENCY_DECAY_PERIOD_DAYS = 60;
 const RECENCY_DECAY_PERIOD_MS = RECENCY_DECAY_PERIOD_DAYS * 24 * 60 * 60 * 1000;
+const TOP_HIT_BOOST_WEIGHT = 0.2;
+const MAX_RECENCY_BOOST_WEIGHT = 0.15;
 
 function normalize(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -34,11 +36,11 @@ function scoreResult(query: string, candidate: { artist: string; title: string; 
   const q = normalize(query);
   const maxLen = Math.max(1, target.length, q.length);
   const fuzzyScore = 1 - editDistance(q, target) / maxLen;
-  const topHitBoost = candidate.is_top_hit ? 0.2 : 0;
+  const topHitBoost = candidate.is_top_hit ? TOP_HIT_BOOST_WEIGHT : 0;
   const now = Date.now();
   const recentWeight =
     candidate.last_sung_at
-      ? Math.max(0, 0.15 - (now - candidate.last_sung_at) / RECENCY_DECAY_PERIOD_MS)
+      ? Math.max(0, MAX_RECENCY_BOOST_WEIGHT - (now - candidate.last_sung_at) / RECENCY_DECAY_PERIOD_MS)
       : 0;
   return fuzzyScore + topHitBoost + recentWeight;
 }
