@@ -17,7 +17,7 @@ export function parseLrc(content: string): LrcLine[] {
       const mm = Number(match[1]);
       const ss = Number(match[2]);
       const fraction = (match[3] || '').padEnd(3, '0');
-      const ms = Number(fraction || '0');
+      const ms = Number(fraction);
       lines.push({ timeMs: mm * 60000 + ss * 1000 + ms, text });
     }
   }

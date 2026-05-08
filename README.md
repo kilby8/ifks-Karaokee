@@ -1,4 +1,4 @@
-# ifks-Karaokee
+# IKFS Karaoke
 
 IKFS boilerplate for a high-performance Expo/React Native karaoke manager.
 

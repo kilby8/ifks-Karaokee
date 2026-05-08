@@ -12,14 +12,21 @@ export function getSyncedLyricState(
   lrcLines: LrcLine[],
   cdgFrames: CdgFrame[]
 ): LyricSyncState {
-  let activeLine: LrcLine | null = null;
-  let nextLine: LrcLine | null = null;
-  for (let i = 0; i < lrcLines.length; i += 1) {
-    if (lrcLines[i].timeMs <= positionMs) {
-      activeLine = lrcLines[i];
-      nextLine = lrcLines[i + 1] || null;
+  let activeLineIndex = -1;
+  let left = 0;
+  let right = lrcLines.length - 1;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    if (lrcLines[mid].timeMs <= positionMs) {
+      activeLineIndex = mid;
+      left = mid + 1;
+    } else {
+      right = mid - 1;
     }
   }
+  const activeLine = activeLineIndex >= 0 ? lrcLines[activeLineIndex] : null;
+  const nextLine = activeLineIndex >= 0 ? lrcLines[activeLineIndex + 1] || null : null;
 
   let activeCdgFrame: CdgFrame | null = null;
   for (let i = 0; i < cdgFrames.length; i += 1) {

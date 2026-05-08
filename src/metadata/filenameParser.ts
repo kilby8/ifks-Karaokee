@@ -29,10 +29,10 @@ export function parseKaraokeFilename(fileName: string): ParsedFilename {
     return { artist, title, extension, rawName };
   }
 
-  const underscore = normalized.split(' ');
-  if (underscore.length > 1) {
-    title = underscore[0].trim();
-    artist = underscore.slice(1).join(' ').trim();
+  const tokens = normalized.split(' ');
+  if (tokens.length > 1) {
+    title = tokens[0].trim();
+    artist = tokens.slice(1).join(' ').trim();
   }
 
   return { artist, title, extension, rawName };
